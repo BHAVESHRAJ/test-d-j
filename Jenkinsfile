@@ -32,12 +32,16 @@ node {
                 echo "Trying to Push Docker Build to DockerHub"
     }
 
+    // Post-build actions
     post {
-       // only triggered when blue or green sign
-       success {
-           slackSend channel: '#slack-test',
+        always {
+            script {
+                BUILD_USER = getBuildUser()
+            }
+            echo 'I will always say hello in the console.'
+            slackSend channel: '#slack-test',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${BUILD_USER}\n More info at: ${env.BUILD_URL}"
-       }
+        }
     }
 }
