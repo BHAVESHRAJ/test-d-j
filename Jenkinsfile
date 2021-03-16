@@ -4,7 +4,7 @@ node {
     stage ('Start') {
       steps {
         // send build started notifications
-        slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        slackSend channel: '#slack-test', color: '"#439FE0"', message: '\'Test message\'', tokenCredentialId: 'slack_id'
       }
     }
     stage('Clone repository') {
